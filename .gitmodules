@@ -16,3 +16,9 @@
 [submodule "Pymacs"]
 	path = Pymacs
 	url = https://github.com/pinard/Pymacs.git
+[submodule "themes/ir-black"]
+	path = themes/ir-black
+	url = https://github.com/jmdeldin/ir-black-theme.el.git
+[submodule "themes/solarized"]
+	path = themes/solarized
+	url = https://github.com/sellout/emacs-color-theme-solarized.git

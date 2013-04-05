@@ -63,11 +63,11 @@
 (setq root-dir "/home/chris/emacs/")
 (setq site-lisp-dir (concat root-dir "site-lisp/"))
 (add-to-list 'load-path site-lisp-dir)
+(setq themes-dir (concat root-dir "themes/"))
 
 ;; Load a color theme.
-(add-to-list 'custom-theme-load-path (concat site-lisp-dir "emacs-color-theme-solarized/"))
-(add-to-list 'custom-theme-load-path (concat site-lisp-dir "ir-black-theme/"))
-(add-to-list 'custom-theme-load-path (concat site-lisp-dir "zenburnt/"))
+(add-to-list 'custom-theme-load-path (concat themes-dir "solarized/"))
+(add-to-list 'custom-theme-load-path (concat themes-dir "ir-black/"))
 (load-theme 'ir-black t)
 
 ;;; General Settings.
