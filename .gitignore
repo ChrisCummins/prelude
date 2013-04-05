@@ -7,3 +7,6 @@
 # transient files, caches etc
 /smex-items
 /abbrevs
+
+# ignored packages
+/site-lisp/auto-complete
