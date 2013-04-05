@@ -939,7 +939,7 @@
 ;;; pymacs.el --- Interface between Emacs Lisp and Python
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "pymacs/"))
+(add-to-list 'load-path (concat site-lisp-dir "Pymacs/"))
 
 (require 'pymacs)
 

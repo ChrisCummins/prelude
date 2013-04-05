@@ -13,3 +13,6 @@
 [submodule "site-lisp/minimap"]
 	path = site-lisp/minimap
 	url = git://randomsample.de/minimap.git
+[submodule "Pymacs"]
+	path = Pymacs
+	url = https://github.com/pinard/Pymacs.git

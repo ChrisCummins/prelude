@@ -11,6 +11,7 @@
 # ignored packages
 /site-lisp/auto-complete
 /site-lisp/magit
+/site-lisp/Pymacs
 
 # compiled lisp
 *.elc
