@@ -1,0 +1,9 @@
+# file system
+/bin/*
+/libexec/*
+/share/*
+/var/*
+
+# transient files, caches etc
+/smex-items
+/abbrevs
