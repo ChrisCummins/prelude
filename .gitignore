@@ -7,3 +7,13 @@
 # transient files, caches etc
 /smex-items
 /abbrevs
+
+# ignored packages
+/site-lisp/auto-complete
+/site-lisp/magit
+/site-lisp/Pymacs
+/site-lisp/python
+/site-lisp/tiny
+
+# compiled lisp
+*.elc

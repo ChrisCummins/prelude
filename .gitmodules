@@ -1,0 +1,66 @@
+[submodule "auto-complete"]
+	path = auto-complete
+	url = https://github.com/auto-complete/auto-complete.git
+[submodule "site-lisp/slime"]
+	path = site-lisp/slime
+	url = https://github.com/nablaone/slime.git
+[submodule "site-lisp/diminish"]
+	path = site-lisp/diminish
+	url = https://github.com/emacsmirror/diminish.git
+[submodule "magit"]
+	path = magit
+	url = https://github.com/magit/magit.git
+[submodule "site-lisp/minimap"]
+	path = site-lisp/minimap
+	url = git://randomsample.de/minimap.git
+[submodule "Pymacs"]
+	path = Pymacs
+	url = https://github.com/pinard/Pymacs.git
+[submodule "themes/ir-black"]
+	path = themes/ir-black
+	url = https://github.com/jmdeldin/ir-black-theme.el.git
+[submodule "themes/solarized"]
+	path = themes/solarized
+	url = https://github.com/sellout/emacs-color-theme-solarized.git
+[submodule "site-lisp/python-mode"]
+	path = site-lisp/python-mode
+	url = https://github.com/emacsmirror/python-mode.git
+[submodule "site-lisp/info+"]
+	path = site-lisp/info+
+	url = https://github.com/emacsmirror/info-plus.git
+[submodule "site-lisp/smex"]
+	path = site-lisp/smex
+	url = https://github.com/nonsequitur/smex.git
+[submodule "site-lisp/pylookup"]
+	path = site-lisp/pylookup
+	url = https://github.com/tsgates/pylookup.git
+[submodule "site-lisp/lintnode"]
+	path = site-lisp/lintnode
+	url = https://github.com/keturn/lintnode.git
+[submodule "tiny-tools"]
+	path = tiny-tools
+	url = https://github.com/jaalto/project--emacs-tiny-tools.git
+[submodule "site-lisp/ido-ubiquitous"]
+	path = site-lisp/ido-ubiquitous
+	url = https://github.com/technomancy/ido-ubiquitous.git
+[submodule "ropemacs"]
+	path = ropemacs
+	url = https://github.com/hakjoon/emacs-ropemacs.git
+[submodule "site-lisp/find-file-in-project"]
+	path = site-lisp/find-file-in-project
+	url = https://github.com/technomancy/find-file-in-project.git
+[submodule "site-lisp/paredit"]
+	path = site-lisp/paredit
+	url = https://github.com/emacsmirror/paredit.git
+[submodule "site-lisp/idle-highlight-mode"]
+	path = site-lisp/idle-highlight-mode
+	url = https://github.com/nonsequitur/idle-highlight-mode.git
+[submodule "site-lisp/etags-select"]
+	path = site-lisp/etags-select
+	url = https://github.com/emacsmirror/etags-select.git
+[submodule "site-lisp/popup"]
+	path = site-lisp/popup
+	url = https://github.com/auto-complete/popup-el.git
+[submodule "site-lisp/flymake-cursor"]
+	path = site-lisp/flymake-cursor
+	url = https://github.com/illusori/emacs-flymake-cursor.git
