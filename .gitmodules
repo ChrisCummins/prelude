@@ -22,3 +22,6 @@
 [submodule "themes/solarized"]
 	path = themes/solarized
 	url = https://github.com/sellout/emacs-color-theme-solarized.git
+[submodule "site-lisp/python-mode"]
+	path = site-lisp/python-mode
+	url = https://github.com/emacsmirror/python-mode.git
