@@ -58,3 +58,6 @@
 [submodule "site-lisp/etags-select"]
 	path = site-lisp/etags-select
 	url = https://github.com/emacsmirror/etags-select.git
+[submodule "site-lisp/popup"]
+	path = site-lisp/popup
+	url = https://github.com/auto-complete/popup-el.git
