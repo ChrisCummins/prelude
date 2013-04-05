@@ -40,3 +40,6 @@
 [submodule "tiny-tools"]
 	path = tiny-tools
 	url = https://github.com/jaalto/project--emacs-tiny-tools.git
+[submodule "site-lisp/ido-ubiquitous"]
+	path = site-lisp/ido-ubiquitous
+	url = https://github.com/technomancy/ido-ubiquitous.git
