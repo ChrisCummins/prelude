@@ -25,3 +25,6 @@
 [submodule "site-lisp/python-mode"]
 	path = site-lisp/python-mode
 	url = https://github.com/emacsmirror/python-mode.git
+[submodule "site-lisp/info+"]
+	path = site-lisp/info+
+	url = https://github.com/emacsmirror/info-plus.git
