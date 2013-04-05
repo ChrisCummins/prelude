@@ -7,3 +7,6 @@
 [submodule "site-lisp/diminish"]
 	path = site-lisp/diminish
 	url = https://github.com/emacsmirror/diminish.git
+[submodule "magit"]
+	path = magit
+	url = https://github.com/magit/magit.git

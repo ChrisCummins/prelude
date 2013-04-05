@@ -10,6 +10,7 @@
 
 # ignored packages
 /site-lisp/auto-complete
+/site-lisp/magit
 
 # compiled lisp
 *.elc
