@@ -10,3 +10,6 @@
 [submodule "magit"]
 	path = magit
 	url = https://github.com/magit/magit.git
+[submodule "site-lisp/minimap"]
+	path = site-lisp/minimap
+	url = git://randomsample.de/minimap.git
