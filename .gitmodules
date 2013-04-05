@@ -55,3 +55,6 @@
 [submodule "site-lisp/idle-highlight-mode"]
 	path = site-lisp/idle-highlight-mode
 	url = https://github.com/nonsequitur/idle-highlight-mode.git
+[submodule "site-lisp/etags-select"]
+	path = site-lisp/etags-select
+	url = https://github.com/emacsmirror/etags-select.git
