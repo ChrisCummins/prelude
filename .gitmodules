@@ -61,3 +61,6 @@
 [submodule "site-lisp/popup"]
 	path = site-lisp/popup
 	url = https://github.com/auto-complete/popup-el.git
+[submodule "site-lisp/flymake-cursor"]
+	path = site-lisp/flymake-cursor
+	url = https://github.com/illusori/emacs-flymake-cursor.git
