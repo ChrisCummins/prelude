@@ -10,3 +10,6 @@
 
 # ignored packages
 /site-lisp/auto-complete
+
+# compiled lisp
+*.elc
