@@ -462,7 +462,10 @@
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()
-            (passive-text-mode)))
+            (passive-text-mode)
+            ;; Do not wrap lines. This ensures each entry in the buffer list
+            ;; occupies only a single line.
+            (setq truncate-lines t)))
 
 (add-hook 'image-mode-hook
           (lambda ()
