@@ -442,6 +442,8 @@
 (add-hook 'gud-mode-hook
           (lambda ()
             (passive-text-mode)
+            ;; Lock the main gud window in place.
+            (window-lock-mode)
             (gdb-many-windows 6)))
 
 (add-hook 'help-mode-hook
