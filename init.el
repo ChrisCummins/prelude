@@ -72,10 +72,9 @@
 (if (file-exists-p custom-file)
     (load-file custom-file))
 
-;; Emacs package manager.
+;; Configure our package-archives and load them.
 (add-to-list 'package-archives
-             '("marmalade" .
-               "http://marmalade-repo.org/packages/"))
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
 ;; Inhibit the startup buffer.
