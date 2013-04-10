@@ -232,6 +232,10 @@
 ;; Load flymake on file open.
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 
+;; Define a key binding for quick grep'ing.
+(global-set-key (kbd "C-c C") 'compile)
+(global-set-key (kbd "C-c c") 'quick-compile)
+
 ;; Scroll the output of compilation windows.
 (setq compilation-scroll-output t)
 
