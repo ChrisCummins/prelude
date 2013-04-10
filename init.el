@@ -24,30 +24,10 @@
 ;;
 ;;    Emacs configuration file.
 ;;
-;;; Wish-list:
+;;; Issues and to-do list:
 ;;
-;;  TODO: Load 3rd party packages on-demand.
-;;
-;; FIXME: Extract FIXME|TODO highlighting into a seperate lisp file.
-;;
-;;  TODO: Add a keybinding to search through FIXME|TODO tags.
-;;
-;;  TODO: Create repositories for my emacs lisp files.
-;;
-;;  TODO: Add site-lisp repsoitories as sub-modules.
-;;
-;;  TODO: Install and configure ipython.
-;;
-;;  TODO: Install and configure CEDET, semantic and minimap overlays.
-;;
-;;  TODO: Install and configure Yasnippet.
-;;
-;;  TODO: Configure and bind Hippie Expand.
-;;
-;;  TODO: Incorporate some of the ideas from:
-;;          https://github.com/technomancy/emacs-starter-kit
-;;
-;; FIXME: ParEdit mode problems with M-<arrow-key>.
+;;    See the GitHub issue tracker for this repository, available at:
+;;    <https://github.com/ChrisCummins/.emacs/issues>
 ;;
 ;;; Code:
 
