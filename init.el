@@ -40,13 +40,15 @@
 ;;  Put early-boot proceedures here.
 ;;; ==========================================================================
 
+;; Assemble our theme load-path.
+(dolist (d (directory-files themes-dir))
+  (add-to-list 'custom-theme-load-path (concat themes-dir d)))
+
 ;; Hide the visual clutter.
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
 
 ;; Load a color theme.
-(add-to-list 'custom-theme-load-path (concat themes-dir "solarized/"))
-(add-to-list 'custom-theme-load-path (concat themes-dir "ir-black/"))
 (load-theme 'ir-black t)
 
 ;;; General Settings.
