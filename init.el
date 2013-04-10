@@ -40,6 +40,10 @@
 ;;  Put early-boot proceedures here.
 ;;; ==========================================================================
 
+;; Assemble our load-path.
+(dolist (d (directory-files site-lisp-dir))
+  (add-to-list 'load-path (concat site-lisp-dir d)))
+
 ;; Assemble our theme load-path.
 (dolist (d (directory-files themes-dir))
   (add-to-list 'custom-theme-load-path (concat themes-dir d)))
@@ -675,11 +679,6 @@
 ;;; auto-complete.el --- Auto Completion for GNU Emacs
 ;;; --------------------------------------------------------------------------
 
-;; Auto-complete requires the popup library.
-(add-to-list 'load-path (concat site-lisp-dir "popup/"))
-
-(add-to-list 'load-path (concat site-lisp-dir "auto-complete/"))
-
 (require 'auto-complete-config)
 
 ;; Auto-Complete mode in all buffers.
@@ -707,8 +706,6 @@
 ;;; column-marker.el --- Highlight certain character columns
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "column-marker/"))
-
 (require 'column-marker)
 
 ;; Define a kery to enable column marker.
@@ -716,8 +713,6 @@
 
 ;;; diminish.el --- Diminished modes are minor modes with no modeline display
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "diminish/"))
 
 (require 'diminish)
 
@@ -732,16 +727,12 @@
 ;;; doremi.el --- Do Re Mi: Incremental change using arrow keys or mouse wheel.
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "doremi/"))
-
 (require 'doremi)
 (require 'doremi-cmd)
 (require 'doremi-frm)
 
 ;;; etags-select.el --- Select from multiple tags
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "etags-select/"))
 
 (require 'etags-select)
 
@@ -751,21 +742,15 @@
 ;;; find-file-in-project.el --- Find files in a project quickly.
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "find-file-in-project/"))
-
 (require 'find-file-in-project)
 
 ;;; flymake-cursor.el --- displays flymake error msg in minibuffer after delay
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "flymake-cursor/"))
-
 (require 'flymake-cursor)
 
 ;;; grep-buffers.el --- grep through buffers (a la 'moccur')
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "grep-buffers/"))
 
 (require 'grep-buffers)
 
@@ -774,21 +759,15 @@
 ;;; highlight-tabs.el --- highlight tabs in buffer
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "highlight-tabs/"))
-
 (require 'highlight-tabs)
 
 ;;; idle-highlight-mode.el --- highlight the word the point is on
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "idle-highlight-mode/"))
-
 (require 'idle-highlight-mode)
 
 ;;; ido-ubiquitous.el --- Use ido (nearly) everywhere
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "ido-ubiquitous/"))
 
 (require 'ido-ubiquitous)
 
@@ -798,14 +777,10 @@
 ;;; info+.el --- Extensions to `info.el'.
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "info+/"))
-
 (require 'info+)
 
 ;;; jslint.el --- flymake integration for jslint
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "lintnode/"))
 
 (require 'flymake-jslint)
 
@@ -815,8 +790,6 @@
 
 ;;; magit.el --- control Git from Emacs
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "magit/"))
 
 (require 'magit)
 
@@ -844,8 +817,6 @@
 ;;; minimap.el --- Minimap sidebar for Emacs.
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "minimap/"))
-
 (require 'minimap)
 
 (global-set-key (kbd "s-.") 'minimap-create)
@@ -858,8 +829,6 @@
 ;;; mo-git-blame.el --- An interactive, iterative 'git blame' mode for Emacs
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "mo-git-blame/"))
-
 (require 'mo-git-blame)
 
 (autoload 'mo-git-blame-file "mo-git-blame" nil t)
@@ -867,8 +836,6 @@
 
 ;;; pager.el --- windows-scroll commands
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "pager/"))
 
 (require 'pager)
 
@@ -887,8 +854,6 @@
 ;;; paredit.el --- minor mode for editing parentheses
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "paredit/"))
-
 (autoload 'enable-paredit-mode "paredit"
   "Turn on pseudo-structural editing of Lisp code." t)
 
@@ -896,8 +861,6 @@
 
 ;;; pedant+.el --- highlight all that naughty formatting.
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "pedant+/"))
 
 (require 'pedant+)
 
@@ -913,8 +876,6 @@
 
 (setq pylookup-dir (concat site-lisp-dir "pylookup/"))
 
-(add-to-list 'load-path pylookup-dir)
-
 (require 'pylookup)
 
 (autoload 'pylookup-lookup "pylookup"
@@ -928,8 +889,6 @@
 
 ;;; pymacs.el --- Interface between Emacs Lisp and Python
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "Pymacs/"))
 
 (require 'pymacs)
 
@@ -948,15 +907,12 @@
 
 (setq python-mode-dir (concat site-lisp-dir "python-mode/"))
 
-(add-to-list 'load-path python-mode-dir)
 (setq py-install-directory python-mode-dir)
 
 (require 'python-mode)
 
 ;;; quack.el --- enhanced support for editing and running Scheme code
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "quack/"))
 
 (require 'quack)
 
@@ -967,8 +923,6 @@
 
 ;;; slime.el --- Superior Lisp Interaction Mode for Emacs
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "slime/"))
 
 (require 'slime)
 
@@ -982,8 +936,6 @@
 
 ;;; smex.el --- M-x interface with Ido-style fuzzy matching.
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "smex/"))
 
 (require 'smex)
 
@@ -1002,7 +954,6 @@
 ;;; tinyprocmail.el --- Emacs procmail minor mode. Lint code checker.
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "tiny/"))
 (setq tinyprocmail--procmail-version "v3.22")
 
 (add-hook 'tinyprocmail--load-hook 'tinyprocmail-install)
@@ -1016,8 +967,6 @@
 ;;; vala-mode.el --- Vala mode derived mode
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "vala-mode/"))
-
 (autoload 'vala-mode "vala-mode" "Major mode for editing Vala code." t)
 
 ;; Register .vala extension for vala-mode.
@@ -1027,14 +976,10 @@
 ;;; valgrind.el --- Based on compile.el included with Emacs
 ;;; --------------------------------------------------------------------------
 
-(add-to-list 'load-path (concat site-lisp-dir "valgrind/"))
-
 (require 'valgrind)
 
 ;;; window-lock.el --- Lock an Emacs window.
 ;;; --------------------------------------------------------------------------
-
-(add-to-list 'load-path (concat site-lisp-dir "window-lock/"))
 
 (require 'window-lock)
 
