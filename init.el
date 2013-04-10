@@ -36,6 +36,9 @@
 (setq site-lisp-dir (concat root-dir "site-lisp/"))
 (setq themes-dir    (concat root-dir "themes/"))
 
+(setq custom-file   (concat root-dir "custom.el"))
+(setq abbrev-file   (concat root-dir "abbrevs"))
+
 ;;; Bootstrap.
 ;;  Put early-boot proceedures here.
 ;;; ==========================================================================
@@ -67,7 +70,6 @@
 (require 'tabify)
 
 ;; Emacs Customize.
-(setq custom-file (concat root-dir "custom.el"))
 (load-file custom-file)
 
 ;; Emacs package manager.
@@ -97,7 +99,7 @@
 (setq sort-fold-case t)
 
 ;; Use abbreviations.
-(read-abbrev-file (concat root-dir "abbrevs"))
+(read-abbrev-file abbrev-file)
 (setq-default abbrev-mode t)
 (setq save-abbrevs t)
 
