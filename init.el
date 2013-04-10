@@ -40,7 +40,6 @@
 (setq abbrev-file   (concat root-dir "abbrevs"))
 
 ;;; Bootstrap.
-;;  Put early-boot proceedures here.
 ;;; ==========================================================================
 
 ;; Assemble our load-path.
