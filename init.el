@@ -31,6 +31,11 @@
 ;;
 ;;; Code:
 
+;; Directories and files:
+(setq root-dir      (concat (getenv "HOME") "/emacs/"))
+(setq site-lisp-dir (concat root-dir "site-lisp/"))
+(setq themes-dir    (concat root-dir "themes/"))
+
 ;;; Bootstrap.
 ;;  Put early-boot proceedures here.
 ;;; ==========================================================================
@@ -38,12 +43,6 @@
 ;; Hide the visual clutter.
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
-
-;; Set file paths.
-(setq root-dir "/home/chris/emacs/")
-(setq site-lisp-dir (concat root-dir "site-lisp/"))
-(add-to-list 'load-path site-lisp-dir)
-(setq themes-dir (concat root-dir "themes/"))
 
 ;; Load a color theme.
 (add-to-list 'custom-theme-load-path (concat themes-dir "solarized/"))
