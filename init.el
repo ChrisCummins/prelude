@@ -68,8 +68,9 @@
 (require 'server)
 (require 'tabify)
 
-;; Emacs Customize.
-(load-file custom-file)
+;; Load our Customize file, if present.
+(if (file-exists-p custom-file)
+    (load-file custom-file))
 
 ;; Emacs package manager.
 (add-to-list 'package-archives
