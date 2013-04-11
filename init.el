@@ -57,6 +57,12 @@
 ;; Load a color theme.
 (load-theme 'ir-black t)
 
+;; Inhibit the startup buffer.
+(setq inhibit-startup-message t)
+
+;; Inhibits display of buffer list when more than 2 files are loaded.
+(setq inhibit-startup-buffer-menu t)
+
 ;;; General Settings.
 ;;; ==========================================================================
 
@@ -76,12 +82,6 @@
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
-
-;; Inhibit the startup buffer.
-(setq inhibit-startup-message t)
-
-;; Inhibits display of buffer list when more than 2 files are loaded.
-(setq inhibit-startup-buffer-menu t)
 
 ;; Add Emacs close confirmation.
 (setq kill-emacs-query-functions
