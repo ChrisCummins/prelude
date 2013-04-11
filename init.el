@@ -1137,12 +1137,15 @@
   (kill-line 0))
 
 (defun passive-text-mode ()
-  "Disable all text editing niceities"
+  "Disable all text editing niceities in the current buffer. As the name implies, this is useful for passively reading text in buffers."
   (interactive)
-  (pedant+-mode -1)
-  (linum-mode -1)
-  (abbrev-mode -1)
-  (auto-fill-mode -1)
+  ;; Disable unwanted modes.
+  (dolist (mode '(pedant+-mode
+                  linum-mode
+                  abbrev-mode
+                  auto-fill-mode))
+    (when (fboundp mode) (funcall mode -1)))
+  ;; Enable word-wrapping for long lines.
   (visual-line-mode 1))
 
 (defun guile-doc ()
