@@ -133,8 +133,8 @@
 
 ;; Define key-bindings for macros.
 (global-set-key [f5] 'kmacro-start-macro)
-(global-set-key [f6] 'kmacro-end-macro)
-(global-set-key [f7] 'kmacro-)
+(global-set-key [f6] 'kmacro-end-and-call-macro)
+(global-set-key [f7] 'edit-kbd-macro)
 
 ;; Define key-bindings for managing whole lines.
 (global-set-key (kbd "C-M-k") 'kill-whole-line)
