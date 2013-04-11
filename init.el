@@ -355,7 +355,8 @@
   (progn
     (auto-fill-mode -1)
     (enable-todo-highlighting)
-    (idle-highlight-mode t)))
+    (idle-highlight-mode t)
+    (flyspell-prog-mode)))
 
 (add-hook 'c-mode-common-hook
           (lambda ()
