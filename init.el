@@ -1095,22 +1095,24 @@
           (t (error "%s" "Not on a paren, brace, or bracket")))))
 
 (defun clean-buffer ()
-  "Untabify the whole buffer and remove trailing whitespace."
+  "Clean trailing whitespace and enforce tab policy."
   (interactive)
   (save-excursion
     (mark-whole-buffer)
-    (untabify (point-min) (point-max))
     (delete-trailing-whitespace)
-    (message "Cleaned buffer.")))
+    (if (equal indent-tabs-mode nil)
+        (untabify (point-min) (point-max))
+      (tabify (point-min) (point-max))))
+  (message "Cleaned buffer."))
 
 (defun format-buffer ()
-  "Untabify the whole buffer, remove trailing whitespace and auto-indent."
+  "Clean buffer and enforce indentation policy."
   (interactive)
-  (clean-buffer)
   (save-excursion
     (mark-whole-buffer)
-    (indent-for-tab-command)
-    (message "Formatted buffer.")))
+    (indent-for-tab-command))
+  (clean-buffer)
+  (message "Formatted buffer."))
 
 (defun set-compile-command ()
   "Set the compile-command variable."
