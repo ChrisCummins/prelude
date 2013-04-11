@@ -136,6 +136,9 @@
 (global-set-key [f6] 'kmacro-end-macro)
 (global-set-key [f7] 'kmacro-)
 
+;; Define key-bindings for managing whole lines.
+(global-set-key (kbd "C-M-k") 'kill-whole-line)
+
 ;;; Appearance, text and input.
 ;;; ==========================================================================
 
@@ -1145,6 +1148,15 @@
   "Kill from point to start of line."
   (interactive)
   (kill-line 0))
+
+(defun kill-whole-line ()
+  "Kill the entire current line."
+  (interactive)
+  (let ((col (current-column)))
+    (beginning-of-visual-line)
+    (kill-line)
+    (kill-line)
+    (move-to-column col)))
 
 (defun passive-text-mode ()
   "Disable all text editing niceities in the current buffer. As the name implies, this is useful for passively reading text in buffers."
