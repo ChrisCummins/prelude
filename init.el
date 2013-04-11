@@ -1,6 +1,6 @@
 ;; init.el --- Emacs configuration file
 ;;
-;; Copyright (C) 2012 Christopher E. Cummins
+;; Copyright (C) 2012, 2013 Christopher E. Cummins
 ;;
 ;; Author: Christopher. E. Cummins <chrisc.101@gmail.com>
 ;; Created: 28 October 2012
@@ -345,7 +345,6 @@
 (c-add-style "gnu-no-tabs" gnu-no-tabs)
 
 ;;; Mode Hooks.
-;;  An alphabetically arranged list of hooks.
 ;;; ==========================================================================
 
 ;; Highlight FIXME: | TODO: | BUG: tags.
@@ -424,7 +423,7 @@
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (programming-common-hook)
-;;            (enable-paredit-mode) FIXME:
+            ;; FIXME: (enable-paredit-mode)
             (setq indent-tabs-mode nil)
             (setq mode-name "el")
             (global-set-key (kbd "C-c C-c") 'comment-region)
@@ -817,7 +816,6 @@
             (passive-text-mode)))
 
 ;; TODO: Define a COMMIT_EDITMSG hook, something like this:
-
 ;; (setq auto-mode-alist (cons
 ;;                     '("COMMIT_EDITMSG$" . magit-log-edit-mode)
 ;;                     auto-mode-alist))
@@ -1004,7 +1002,7 @@
 
 (xclip-mode 1)
 
-;;; Proceedures and variables.
+;;; Procedures and variables.
 ;;; ==========================================================================
 
 (defface trailing-whitespace
