@@ -38,6 +38,7 @@
 
 (setq custom-file   (concat root-dir "custom.el"))
 (setq abbrev-file   (concat root-dir "abbrevs"))
+(setq ispell-file   (concat root-dir "dictionary"))
 
 ;;; Bootstrap.
 ;;; ==========================================================================
@@ -104,6 +105,7 @@
 
 ;; Setup dictionary.
 (setq ispell-dictionary "british")
+(setq ispell-personal-dictionary ispell-file)
 
 ;; Set the follow to non-nil to Isearch in file names only.
 ;;
