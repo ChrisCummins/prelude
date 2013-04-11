@@ -102,6 +102,9 @@
 (setq-default abbrev-mode t)
 (setq save-abbrevs t)
 
+;; Setup dictionary.
+(setq ispell-dictionary "british")
+
 ;; Set the follow to non-nil to Isearch in file names only.
 ;;
 ;; If t, Isearch in Dired always matches only file names.
