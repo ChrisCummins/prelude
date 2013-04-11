@@ -227,6 +227,10 @@
 (global-set-key (kbd "C-c C") 'compile)
 (global-set-key (kbd "C-c c") 'quick-compile)
 
+;; Define key bindings for quickly styling a buffer.
+(global-set-key (kbd "C-c f") 'clean-buffer)
+(global-set-key (kbd "C-c F") 'format-buffer)
+
 ;; Scroll the output of compilation windows.
 (setq compilation-scroll-output t)
 
@@ -1097,7 +1101,7 @@
     (mark-whole-buffer)
     (untabify (point-min) (point-max))
     (delete-trailing-whitespace)
-    (message "Cleaned code.")))
+    (message "Cleaned buffer.")))
 
 (defun format-buffer ()
   "Untabify the whole buffer, remove trailing whitespace and auto-indent."
@@ -1106,7 +1110,7 @@
   (save-excursion
     (mark-whole-buffer)
     (indent-for-tab-command)
-    (message "Formatted code.")))
+    (message "Formatted buffer.")))
 
 (defun set-compile-command ()
   "Set the compile-command variable."
