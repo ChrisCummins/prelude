@@ -544,14 +544,14 @@
 (add-hook 'sh-mode-hook
           (lambda ()
             (programming-common-hook)
-            (setq mode-name "sh")
             (global-set-key (kbd "C-c C-c") 'comment-region)
-            (setq indent-tabs-mode t
+            (setq mode-name "sh"
+                  fill-column 80
+                  indent-tabs-mode t
                   sh-basic-offset 8
                   sh-indentation 8
                   sh-indent-for-case-label 0
-                  sh-indent-for-case-alt '+)
-            (setq fill-column 80)))
+                  sh-indent-for-case-alt '+)))
 
 (add-hook 'shell-mode-hook
           (lambda ()
