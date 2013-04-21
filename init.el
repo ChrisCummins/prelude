@@ -147,7 +147,7 @@
 (setq use-dialog-box nil)
 
 ;; Set the default font.
-(set-default-font "Inconsolata-11")
+(set-default-font "Inconsolata-Medium-11")
 (set-face-bold-p 'bold nil)
 
 ;; Toggle visualization of matching parens (Show Paren mode).  With a prefix
