@@ -547,8 +547,7 @@
             (setq mode-name "sh")
             (global-set-key (kbd "C-c C-c") 'comment-region)
             (setq indent-tabs-mode nil)
-            (setq fill-column 80)
-            (auto-fill-mode -1)))
+            (setq fill-column 80)))
 
 (add-hook 'shell-mode-hook
           (lambda ()
