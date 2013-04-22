@@ -557,6 +557,11 @@
           (lambda ()
             (passive-text-mode)))
 
+(add-hook 'text-mode-hook
+          (lambda ()
+            (setq mode-name "txt")
+            (flyspell-mode 1)))
+
 (add-hook 'vala-mode-hook
           (lambda ()
             (programming-common-hook)
