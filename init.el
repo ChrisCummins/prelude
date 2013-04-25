@@ -854,6 +854,13 @@
 (autoload 'mo-git-blame-file "mo-git-blame" nil t)
 (autoload 'mo-git-blame-current "mo-git-blame" nil t)
 
+;;; nasm-mode.el --- major mode for nasm assembly
+;;; --------------------------------------------------------------------------
+
+(require 'nasm-mode)
+
+(add-to-list 'auto-mode-alist '("\\.\\(asm\\|s\\)$" . nasm-mode))
+
 ;;; pager.el --- windows-scroll commands
 ;;; --------------------------------------------------------------------------
 
