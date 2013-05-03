@@ -64,3 +64,6 @@
 [submodule "themes/ir-black"]
 	path = themes/ir-black
 	url = git@github.com:ChrisCummins/ir-black-theme.el.git
+[submodule "site-lisp/closure-jslint"]
+	path = site-lisp/closure-jslint
+	url = https://gist.github.com/974174.git

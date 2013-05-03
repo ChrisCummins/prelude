@@ -728,6 +728,12 @@
                    ac-source-features
                    ac-source-abbrev))
 
+;;; closure-gjslint.el --- Closure Lint mode
+;;; --------------------------------------------------------------------------
+
+(require 'tramp)
+(require 'closure-gjslint)
+
 ;;; column-marker.el --- Highlight certain character columns
 ;;; --------------------------------------------------------------------------
 
