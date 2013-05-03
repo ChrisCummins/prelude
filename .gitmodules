@@ -67,3 +67,6 @@
 [submodule "site-lisp/closure-jslint"]
 	path = site-lisp/closure-jslint
 	url = https://gist.github.com/974174.git
+[submodule "emacs"]
+	path = emacs
+	url = git://git.savannah.gnu.org/emacs.git
