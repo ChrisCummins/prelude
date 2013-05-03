@@ -223,9 +223,6 @@
 ;; Enables/disables Flymake GUI warnings.
 (setq flymake-gui-warnings-enabled nil)
 
-;; Load flymake on file open.
-(add-hook 'find-file-hook 'flymake-find-file-hook)
-
 ;; Define a key binding for quick grep'ing.
 (global-set-key (kbd "C-c C") 'compile)
 (global-set-key (kbd "C-c c") 'quick-compile)
