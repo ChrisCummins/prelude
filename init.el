@@ -95,6 +95,10 @@
   "Prevent annoying \"Active processes exist\" query when you quit Emacs."
   (flet ((process-list ())) ad-do-it))
 
+;; Un-disable some features.
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+
 ;; Case insensitive list sorting.
 (setq sort-fold-case t)
 
