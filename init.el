@@ -136,6 +136,9 @@
 (global-set-key [f6] 'kmacro-end-and-call-macro)
 (global-set-key [f7] 'edit-kbd-macro)
 
+;; Bind a key to open current file in vim.
+(global-set-key [f12] 'open-in-vim)
+
 ;; Define key-bindings for managing whole lines.
 (global-set-key (kbd "C-M-k") 'kill-whole-line)
 
@@ -1276,6 +1279,22 @@
   (insert "\\textbf{")
   (save-excursion
     (insert "} ")))
+
+(defun open-in-vim ()
+  "Opens the current file in vim."
+  (interactive)
+  (if (not (equal buffer-file-name nil))
+      (let ((vim-prefix "gnome-terminal -e 'vim") (vim-postfix "'"))
+        (save-buffer) ;; First, write changes to disk
+        (recenter) ;; Vim opens files with the view centred
+        (shell-command-to-string (concat vim-prefix " "
+                                         (shell-quote-argument buffer-file-name)
+                                         " +"
+                                         (number-to-string (line-number-at-pos))
+                                         vim-postfix " &>/dev/null &")))
+    ;; Not all buffers are associated with files
+    (message "Not a real file")))
+
 
 ;;; Emacs server.
 ;;; ==========================================================================
