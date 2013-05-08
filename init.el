@@ -148,6 +148,281 @@
 ;; Define key-bindings for managing whole lines.
 (global-set-key (kbd "C-M-k") 'kill-whole-line)
 
+;;; Procedures and variables.
+;;; ==========================================================================
+
+(defface trailing-whitespace
+  '((((class color) (min-colors 88) (background light))
+     :background "darkseagreen2")
+    (((class color) (min-colors 88) (background dark))
+     :background "darkolivegreen")
+    (((class color) (min-colors 16) (background light))
+     :background "darkseagreen2")
+    (((class color) (min-colors 16) (background dark))
+     :background "darkolivegreen")
+    (((class color) (min-colors 8))
+     :background "green" :foreground "black")
+    (t :inverse-video t))
+  "Basic face for highlighting."
+  :group 'basic-faces)
+
+(defun layout-ide ()
+  "Set up a simple IDE-like environment."
+  (interactive)
+  (split-window-vertically -8)
+  (other-window 1)
+  (shell)
+  (window-lock-mode)
+  (other-window 1)
+  (split-window-horizontally)
+  ;; Make sure we can get back here if our setup somehow gets messed up (use 'C-x r j i')
+  (window-configuration-to-register ?i)
+  (message "IDE initialized. Use 'C-x r j i' to return to this window configuration."))
+
+(defun dired-find-file (&optional arg)
+  "Open each of the marked files, or the file under the point, or when prefix arg, the next N files "
+  (interactive "P")
+  (let* ((fn-list (dired-get-marked-files nil arg)))
+    (mapc 'find-file fn-list)))
+
+(defun rename-file-and-buffer (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (if (get-buffer new-name)
+          (message "A buffer named '%s' already exists!" new-name)
+        (progn
+          (rename-file name new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil))))))
+
+(defun move-buffer-file (dir)
+  "Moves both current buffer and file it's visiting to DIR."
+  (interactive "DNew directory: ")
+  (let* ((name (buffer-name))
+         (filename (buffer-file-name))
+         (dir
+          (if (string-match dir "\\(?:/\\|\\\\)$")
+              (substring dir 0 -1) dir))
+         (newname (concat dir "/" name)))
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (progn
+        (copy-file filename newname 1)
+        (delete-file filename)
+        (set-visited-file-name newname)
+        (set-buffer-modified-p nil)
+        t))))
+
+(defun git-grep ()
+  (interactive)
+  (setq grep-command "git --no-pager grep -nH ")
+  (call-interactively 'grep))
+
+(defun electric-pair ()
+  "Insert character pair without sournding spaces."
+  (interactive)
+  (let (parens-require-spaces)
+    (insert-pair)))
+
+(defun bounce-matching-paren ()
+  "Will bounce between matching parens just like % in vi"
+  (interactive)
+  (let ((prev-char (char-to-string (preceding-char)))
+        (next-char (char-to-string (following-char))))
+    (cond ((string-match "[[{(<]" next-char) (forward-sexp 1))
+          ((string-match "[\]})>]" prev-char) (backward-sexp 1))
+          (t (error "%s" "Not on a paren, brace, or bracket")))))
+
+(defun clean-buffer ()
+  "Clean trailing whitespace and enforce tab policy."
+  (interactive)
+  (save-excursion
+    (mark-whole-buffer)
+    (delete-trailing-whitespace)
+    (if (equal indent-tabs-mode nil)
+        (untabify (point-min) (point-max))
+      (tabify (point-min) (point-max))))
+  (message "Cleaned buffer."))
+
+(defun format-buffer ()
+  "Clean buffer and enforce indentation policy."
+  (interactive)
+  (save-excursion
+    (mark-whole-buffer)
+    (indent-for-tab-command))
+  (clean-buffer)
+  (message "Formatted buffer."))
+
+(defun set-compile-command ()
+  "Set the compile-command variable."
+  (interactive)
+  (let ((new-compile-command (read-from-minibuffer
+                              "Compile command: "
+                              compile-command)))
+    (setq compile-command new-compile-command)))
+
+(defun quick-compile ()
+  "Run the compile command (no prompt)."
+  (interactive)
+  (compile compile-command))
+
+(defun run-gdb ()
+  "Run GDB session"
+  (interactive)
+  ;; TODO: Make this prompt auto-complete file paths.
+  (let ((gdb-command (read-from-minibuffer
+                      "Run gdb (like this): "
+                      "gdb -i=mi ")))
+    (gdb gdb-command)))
+
+(defun beginning-of-next-line()
+  "Moves cursor to the beginning of the next line"
+  (interactive)
+  (end-of-line)
+  (if (not (eobp))
+      (forward-char 1)))
+
+(defun kill-start-of-line ()
+  "Kill from point to start of line."
+  (interactive)
+  (kill-line 0))
+
+(defun kill-whole-line ()
+  "Kill the entire current line."
+  (interactive)
+  (let ((col (current-column)))
+    (beginning-of-visual-line)
+    (kill-line)
+    (kill-line)
+    (move-to-column col)))
+
+(defun passive-text-mode ()
+  "Disable all text editing niceities in the current buffer. As the name implies, this is useful for passively reading text in buffers."
+  (interactive)
+  ;; Disable unwanted modes.
+  (dolist (mode '(pedant+-mode
+                  linum-mode
+                  abbrev-mode
+                  auto-fill-mode))
+    (when (fboundp mode) (funcall mode -1)))
+  ;; Enable word-wrapping for long lines.
+  (visual-line-mode 1))
+
+(defun guile-doc ()
+  "Browse the Guile Manual"
+  (interactive)
+  (browse-url "http://www.gnu.org/software/guile/manual/guile.html"))
+
+(defun toggle-source-header()
+  "Switches to the source buffer if currently in the header buffer and vice versa."
+  (interactive)
+  (let ((buf (current-buffer))
+        (name (file-name-nondirectory (buffer-file-name)))
+        file
+        offs)
+    (setq offs (string-match c++-header-ext-regexp name))
+    (if offs
+        (let ((lst c++-source-extension-list)
+              (ok nil)
+              ext)
+          (setq file (substring name 0 offs))
+          (while (and lst (not ok))
+            (setq ext (car lst))
+            (if (file-exists-p (concat file "." ext))
+                (setq ok t))
+            (setq lst (cdr lst)))
+          (if ok
+              (find-file (concat file "." ext))))
+      (let ()
+        (setq offs (string-match c++-source-ext-regexp name))
+        (if offs
+            (let ((lst c++-header-extension-list)
+                  (ok nil)
+                  ext)
+              (setq file (substring name 0 offs))
+              (while (and lst (not ok))
+                (setq ext (car lst))
+                (if (file-exists-p (concat file "." ext))
+                    (setq ok t))
+                (setq lst (cdr lst)))
+              (if ok
+                  (find-file (concat file "." ext)))))))))
+
+(defun latex-insert-itemize ()
+  "Insert new itemized list at point."
+  (interactive)
+  (insert "\\begin{itemize}
+")
+  (indent-for-tab-command)
+  (insert "\\item ")
+  (save-excursion
+    (insert "
+\\end{itemize}
+")))
+
+(defun latex-insert-enumerate ()
+  "Insert new enumerated list at point."
+  (interactive)
+  (insert "\\begin{enumerate}
+")
+  (indent-for-tab-command)
+  (insert "\\item ")
+  (save-excursion
+    (insert "
+\\end{enumerate}
+")))
+
+(defun latex-format-verbatim ()
+  "Begin verbatim text block."
+  (interactive)
+  (insert "\\begin{verbatim}
+")
+  (save-excursion
+    (insert "
+\\end{verbatim}
+")))
+
+(defun latex-format-texttt ()
+  "Wrap selected region with monospace font tags."
+  (interactive)
+  (insert "\\texttt{")
+  (save-excursion
+    (insert "} ")))
+
+(defun latex-format-textit ()
+  "Wrap selected region with monospace font tags."
+  (interactive)
+  (insert "\\textit{")
+  (save-excursion
+    (insert "} ")))
+
+(defun latex-format-textbf ()
+  "Wrap selected region with monospace font tags."
+  (interactive)
+  (insert "\\textbf{")
+  (save-excursion
+    (insert "} ")))
+
+(defun open-in-vim ()
+  "Opens the current file in vim."
+  (interactive)
+  (if (not (equal buffer-file-name nil))
+      (let ((vim-prefix "gnome-terminal -e 'vim") (vim-postfix "'"))
+        (save-buffer) ;; First, write changes to disk
+        (recenter) ;; Vim opens files with the view centred
+        (shell-command-to-string (concat vim-prefix " "
+                                         (shell-quote-argument buffer-file-name)
+                                         " +"
+                                         (number-to-string (line-number-at-pos))
+                                         vim-postfix " &>/dev/null &")))
+    ;; Not all buffers are associated with files
+    (message "Not a real file")))
+
 ;;; Appearance, text and input.
 ;;; ==========================================================================
 
@@ -1031,282 +1306,6 @@
 (require 'xclip)
 
 (xclip-mode 1)
-
-;;; Procedures and variables.
-;;; ==========================================================================
-
-(defface trailing-whitespace
-  '((((class color) (min-colors 88) (background light))
-     :background "darkseagreen2")
-    (((class color) (min-colors 88) (background dark))
-     :background "darkolivegreen")
-    (((class color) (min-colors 16) (background light))
-     :background "darkseagreen2")
-    (((class color) (min-colors 16) (background dark))
-     :background "darkolivegreen")
-    (((class color) (min-colors 8))
-     :background "green" :foreground "black")
-    (t :inverse-video t))
-  "Basic face for highlighting."
-  :group 'basic-faces)
-
-(defun layout-ide ()
-  "Set up a simple IDE-like environment."
-  (interactive)
-  (split-window-vertically -8)
-  (other-window 1)
-  (shell)
-  (window-lock-mode)
-  (other-window 1)
-  (split-window-horizontally)
-  ;; Make sure we can get back here if our setup somehow gets messed up (use 'C-x r j i')
-  (window-configuration-to-register ?i)
-  (message "IDE initialized. Use 'C-x r j i' to return to this window configuration."))
-
-(defun dired-find-file (&optional arg)
-  "Open each of the marked files, or the file under the point, or when prefix arg, the next N files "
-  (interactive "P")
-  (let* ((fn-list (dired-get-marked-files nil arg)))
-    (mapc 'find-file fn-list)))
-
-(defun rename-file-and-buffer (new-name)
-  "Renames both current buffer and file it's visiting to NEW-NAME."
-  (interactive "sNew name: ")
-  (let ((name (buffer-name))
-        (filename (buffer-file-name)))
-    (if (not filename)
-        (message "Buffer '%s' is not visiting a file!" name)
-      (if (get-buffer new-name)
-          (message "A buffer named '%s' already exists!" new-name)
-        (progn
-          (rename-file name new-name 1)
-          (rename-buffer new-name)
-          (set-visited-file-name new-name)
-          (set-buffer-modified-p nil))))))
-
-(defun move-buffer-file (dir)
-  "Moves both current buffer and file it's visiting to DIR."
-  (interactive "DNew directory: ")
-  (let* ((name (buffer-name))
-         (filename (buffer-file-name))
-         (dir
-          (if (string-match dir "\\(?:/\\|\\\\)$")
-              (substring dir 0 -1) dir))
-         (newname (concat dir "/" name)))
-    (if (not filename)
-        (message "Buffer '%s' is not visiting a file!" name)
-      (progn
-        (copy-file filename newname 1)
-        (delete-file filename)
-        (set-visited-file-name newname)
-        (set-buffer-modified-p nil)
-        t))))
-
-(defun git-grep ()
-  (interactive)
-  (setq grep-command "git --no-pager grep -nH ")
-  (call-interactively 'grep))
-
-(defun electric-pair ()
-  "Insert character pair without sournding spaces."
-  (interactive)
-  (let (parens-require-spaces)
-    (insert-pair)))
-
-(defun bounce-matching-paren ()
-  "Will bounce between matching parens just like % in vi"
-  (interactive)
-  (let ((prev-char (char-to-string (preceding-char)))
-        (next-char (char-to-string (following-char))))
-    (cond ((string-match "[[{(<]" next-char) (forward-sexp 1))
-          ((string-match "[\]})>]" prev-char) (backward-sexp 1))
-          (t (error "%s" "Not on a paren, brace, or bracket")))))
-
-(defun clean-buffer ()
-  "Clean trailing whitespace and enforce tab policy."
-  (interactive)
-  (save-excursion
-    (mark-whole-buffer)
-    (delete-trailing-whitespace)
-    (if (equal indent-tabs-mode nil)
-        (untabify (point-min) (point-max))
-      (tabify (point-min) (point-max))))
-  (message "Cleaned buffer."))
-
-(defun format-buffer ()
-  "Clean buffer and enforce indentation policy."
-  (interactive)
-  (save-excursion
-    (mark-whole-buffer)
-    (indent-for-tab-command))
-  (clean-buffer)
-  (message "Formatted buffer."))
-
-(defun set-compile-command ()
-  "Set the compile-command variable."
-  (interactive)
-  (let ((new-compile-command (read-from-minibuffer
-                              "Compile command: "
-                              compile-command)))
-    (setq compile-command new-compile-command)))
-
-(defun quick-compile ()
-  "Run the compile command (no prompt)."
-  (interactive)
-  (compile compile-command))
-
-(defun run-gdb ()
-  "Run GDB session"
-  (interactive)
-  ;; TODO: Make this prompt auto-complete file paths.
-  (let ((gdb-command (read-from-minibuffer
-                      "Run gdb (like this): "
-                      "gdb -i=mi ")))
-    (gdb gdb-command)))
-
-(defun beginning-of-next-line()
-  "Moves cursor to the beginning of the next line"
-  (interactive)
-  (end-of-line)
-  (if (not (eobp))
-      (forward-char 1)))
-
-(defun kill-start-of-line ()
-  "Kill from point to start of line."
-  (interactive)
-  (kill-line 0))
-
-(defun kill-whole-line ()
-  "Kill the entire current line."
-  (interactive)
-  (let ((col (current-column)))
-    (beginning-of-visual-line)
-    (kill-line)
-    (kill-line)
-    (move-to-column col)))
-
-(defun passive-text-mode ()
-  "Disable all text editing niceities in the current buffer. As the name implies, this is useful for passively reading text in buffers."
-  (interactive)
-  ;; Disable unwanted modes.
-  (dolist (mode '(pedant+-mode
-                  linum-mode
-                  abbrev-mode
-                  auto-fill-mode))
-    (when (fboundp mode) (funcall mode -1)))
-  ;; Enable word-wrapping for long lines.
-  (visual-line-mode 1))
-
-(defun guile-doc ()
-  "Browse the Guile Manual"
-  (interactive)
-  (browse-url "http://www.gnu.org/software/guile/manual/guile.html"))
-
-(defun toggle-source-header()
-  "Switches to the source buffer if currently in the header buffer and vice versa."
-  (interactive)
-  (let ((buf (current-buffer))
-        (name (file-name-nondirectory (buffer-file-name)))
-        file
-        offs)
-    (setq offs (string-match c++-header-ext-regexp name))
-    (if offs
-        (let ((lst c++-source-extension-list)
-              (ok nil)
-              ext)
-          (setq file (substring name 0 offs))
-          (while (and lst (not ok))
-            (setq ext (car lst))
-            (if (file-exists-p (concat file "." ext))
-                (setq ok t))
-            (setq lst (cdr lst)))
-          (if ok
-              (find-file (concat file "." ext))))
-      (let ()
-        (setq offs (string-match c++-source-ext-regexp name))
-        (if offs
-            (let ((lst c++-header-extension-list)
-                  (ok nil)
-                  ext)
-              (setq file (substring name 0 offs))
-              (while (and lst (not ok))
-                (setq ext (car lst))
-                (if (file-exists-p (concat file "." ext))
-                    (setq ok t))
-                (setq lst (cdr lst)))
-              (if ok
-                  (find-file (concat file "." ext)))))))))
-
-(defun latex-insert-itemize ()
-  "Insert new itemized list at point."
-  (interactive)
-  (insert "\\begin{itemize}
-")
-  (indent-for-tab-command)
-  (insert "\\item ")
-  (save-excursion
-    (insert "
-\\end{itemize}
-")))
-
-(defun latex-insert-enumerate ()
-  "Insert new enumerated list at point."
-  (interactive)
-  (insert "\\begin{enumerate}
-")
-  (indent-for-tab-command)
-  (insert "\\item ")
-  (save-excursion
-    (insert "
-\\end{enumerate}
-")))
-
-(defun latex-format-verbatim ()
-  "Begin verbatim text block."
-  (interactive)
-  (insert "\\begin{verbatim}
-")
-  (save-excursion
-    (insert "
-\\end{verbatim}
-")))
-
-(defun latex-format-texttt ()
-  "Wrap selected region with monospace font tags."
-  (interactive)
-  (insert "\\texttt{")
-  (save-excursion
-    (insert "} ")))
-
-(defun latex-format-textit ()
-  "Wrap selected region with monospace font tags."
-  (interactive)
-  (insert "\\textit{")
-  (save-excursion
-    (insert "} ")))
-
-(defun latex-format-textbf ()
-  "Wrap selected region with monospace font tags."
-  (interactive)
-  (insert "\\textbf{")
-  (save-excursion
-    (insert "} ")))
-
-(defun open-in-vim ()
-  "Opens the current file in vim."
-  (interactive)
-  (if (not (equal buffer-file-name nil))
-      (let ((vim-prefix "gnome-terminal -e 'vim") (vim-postfix "'"))
-        (save-buffer) ;; First, write changes to disk
-        (recenter) ;; Vim opens files with the view centred
-        (shell-command-to-string (concat vim-prefix " "
-                                         (shell-quote-argument buffer-file-name)
-                                         " +"
-                                         (number-to-string (line-number-at-pos))
-                                         vim-postfix " &>/dev/null &")))
-    ;; Not all buffers are associated with files
-    (message "Not a real file")))
-
 
 ;;; Emacs server.
 ;;; ==========================================================================
