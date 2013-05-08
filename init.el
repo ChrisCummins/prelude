@@ -642,7 +642,8 @@
   (progn
     (auto-fill-mode -1)
     (enable-todo-highlighting)
-    (idle-highlight-mode t)
+    (when (require 'idle-highlight-mode nil 'noerror)
+      (idle-highlight-mode t))
     (flyspell-prog-mode)))
 
 (add-hook 'c-mode-common-hook
