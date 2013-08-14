@@ -682,15 +682,14 @@
           (lambda ()
             (passive-text-mode)))
 
-(add-hook 'css-mode-common-hook
+(add-hook 'css-mode-hook
           (lambda ()
             (programming-common-hook)
             ;; Define the normal key binding for comment region.
             (global-set-key (kbd "C-c C-c") 'comment-region)
             ;; Indent by 2 spaces.
             (setq indent-tabs-mode nil)
-            (setq-default tab-width 2)
-            (setq indent-line-function 'insert-tab)))
+            (setq css-indent-offset 2)))
 
 (add-hook 'diff-mode-hook
           (lambda ()
@@ -730,15 +729,13 @@
           (lambda ()
             (passive-text-mode)))
 
-(add-hook 'html-mode-common-hook
+(add-hook 'html-mode-hook
           (lambda ()
             (programming-common-hook)
             ;; Define the normal key binding for comment region.
             (global-set-key (kbd "C-c C-c") 'comment-region)
             ;; Indent by 2 spaces.
-            (setq indent-tabs-mode nil)
-            (setq-default tab-width 2)
-            (setq indent-line-function 'insert-tab)))
+            (setq indent-tabs-mode nil)))
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()
@@ -756,17 +753,16 @@
             (passive-text-mode)
             (linum-mode 1)))
 
-(add-hook 'js2-mode-hook
+(add-hook 'js-mode-hook
           (lambda ()
             (programming-common-hook)
-            ;; Lint.
-            (lintnode-hook)
             ;; Folding.
             (imenu-add-menubar-index)
             (hs-minor-mode t)
             ;; Auto-complete mode.
             (auto-complete-mode 1)
-            (set-variable 'indent-tabs-mode nil)))
+            (setq indent-tabs-mode nil)
+            (setq js-indent-level 2)))
 
 (add-hook 'lisp-interaction-mode
           (lambda ()
