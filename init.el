@@ -56,7 +56,7 @@
   (when (fboundp mode) (funcall mode -1)))
 
 ;; Load a color theme.
-(load-theme 'ir-black t)
+(load-theme 'solarized-dark t)
 
 ;; Inhibit the startup buffer.
 (setq inhibit-startup-message t)
