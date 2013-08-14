@@ -430,10 +430,6 @@
 ;; questions. File selection dialogs are also enabled if this is non-nil.
 (setq use-dialog-box nil)
 
-;; Set the default font.
-(set-default-font "Inconsolata-Medium-11")
-(set-face-bold-p 'bold nil)
-
 ;; Toggle visualization of matching parens (Show Paren mode).  With a prefix
 ;; argument ARG, enable Show Paren mode if ARG is positive, and disable it
 ;; otherwise.  If called from Lisp, enable the mode if ARG is omitted or nil.
