@@ -32,7 +32,7 @@
 ;;; Code:
 
 ;; Directories and files:
-(setq root-dir      (concat (getenv "HOME") "/emacs/"))
+(setq root-dir      (concat (getenv "HOME") "/.local/src/emacs/"))
 (setq site-lisp-dir (concat root-dir "site-lisp/"))
 (setq themes-dir    (concat root-dir "themes/"))
 
