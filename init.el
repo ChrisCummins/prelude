@@ -305,8 +305,7 @@
   "Disable all text editing niceities in the current buffer. As the name implies, this is useful for passively reading text in buffers."
   (interactive)
   ;; Disable unwanted modes.
-  (dolist (mode '(pedant+-mode
-                  linum-mode
+  (dolist (mode '(linum-mode
                   abbrev-mode
                   auto-fill-mode))
     (when (fboundp mode) (funcall mode -1)))
@@ -618,8 +617,7 @@
 (defconst gnu-no-tabs
   '("gnu"
     (c-tab-always-indent . nil)
-    (indent-tabs-mode . nil)
-    (pedant+-mode . 1))
+    (indent-tabs-mode . nil))
   "GNU style without tabs")
 
 (c-add-style "gnu-no-tabs" gnu-no-tabs)
@@ -1165,18 +1163,6 @@
   "Turn on pseudo-structural editing of Lisp code." t)
 
 (require 'paredit)
-
-;;; pedant+.el --- highlight all that naughty formatting.
-;;; --------------------------------------------------------------------------
-
-(require 'pedant+)
-
-;; Toggle Pedant+ mode in all buffers. With prefix ARG, enable Global-Pedant+
-;; mode if ARG is positive; otherwise, disable it.
-(global-pedant+-mode -1)
-
-;; Toggle Pedant+ mode with a key binding.
-(global-set-key (kbd "C-c n") 'pedant+-mode)
 
 ;;; pylookup.el --- emacs mode for searching python documents with convenience
 ;;; --------------------------------------------------------------------------
