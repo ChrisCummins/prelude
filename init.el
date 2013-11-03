@@ -1170,21 +1170,6 @@
 (setq pylookup-db-file (concat pylookup-dir "/pylookup.db"))
 (setq pylookup-search-options '("--insensitive" "0" "--desc" "0"))
 
-;;; pymacs.el --- Interface between Emacs Lisp and Python
-;;; --------------------------------------------------------------------------
-
-(require 'pymacs)
-
-(autoload 'pymacs-apply    "pymacs")
-(autoload 'pymacs-call     "pymacs")
-(autoload 'pymacs-eval     "pymacs" nil t)
-(autoload 'pymacs-exec     "pymacs" nil t)
-(autoload 'pymacs-load     "pymacs" nil t)
-(autoload 'pymacs-autoload "pymacs")
-
-(add-to-list 'pymacs-load-path (concat site-lisp-dir "python/"))
-(pymacs-load "ropemacs" "rope-")
-
 ;;; python-mode.el --- Towards an Python-IDE in Emacs
 ;;; --------------------------------------------------------------------------
 
