@@ -520,6 +520,10 @@
 (setq auto-mode-alist
       (append '(("\\.doap$" . xml-mode)) auto-mode-alist))
 
+;; Register Less CSS sources with css-mode
+(setq auto-mode-alist
+      (append '(("\\.less$" . css-mode)) auto-mode-alist))
+
 ;; Automatically set mail mode for mutt files.
 (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
 
