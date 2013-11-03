@@ -1240,19 +1240,6 @@
 ;; Binding for smex major modes.
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
-;;; tinyprocmail.el --- Emacs procmail minor mode. Lint code checker.
-;;; --------------------------------------------------------------------------
-
-(setq tinyprocmail--procmail-version "v3.22")
-
-(add-hook 'tinyprocmail--load-hook 'tinyprocmail-install)
-
-(require 'tinyprocmail)
-
-;; Auto-load tinyprocmail mode for procmailrc files.
-(add-to-list 'auto-mode-alist '("\\.procmailrc\\|pm-.*\\.rc$"
-                                . turn-on-tinyprocmail-mode))
-
 ;;; vala-mode.el --- Vala mode derived mode
 ;;; --------------------------------------------------------------------------
 
