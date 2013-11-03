@@ -780,8 +780,7 @@
 (add-hook 'makefile-mode-hook
           (lambda ()
             (programming-common-hook)
-            (setq mode-name "make")
-            (highlight-tabs-mode -1)))
+            (setq mode-name "make")))
 
 (add-hook 'Man-mode-hook
           (lambda ()
@@ -1056,11 +1055,6 @@
 (require 'grep-buffers)
 
 (global-set-key (kbd "C-c G") 'grep-buffers)
-
-;;; highlight-tabs.el --- highlight tabs in buffer
-;;; --------------------------------------------------------------------------
-
-(require 'highlight-tabs)
 
 ;;; idle-highlight-mode.el --- highlight the word the point is on
 ;;; --------------------------------------------------------------------------
