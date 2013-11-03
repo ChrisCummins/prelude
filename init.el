@@ -172,7 +172,6 @@
   (split-window-vertically -8)
   (other-window 1)
   (shell)
-  (window-lock-mode)
   (other-window 1)
   (split-window-horizontally)
   ;; Make sure we can get back here if our setup somehow gets messed up (use 'C-x r j i')
@@ -720,7 +719,6 @@
           (lambda ()
             (passive-text-mode)
             ;; Lock the main gud window in place.
-            (window-lock-mode)
             (gdb-many-windows 6)))
 
 (add-hook 'help-mode-hook
@@ -1274,14 +1272,6 @@
 ;;; --------------------------------------------------------------------------
 
 (require 'valgrind)
-
-;;; window-lock.el --- Lock an Emacs window.
-;;; --------------------------------------------------------------------------
-
-(require 'window-lock)
-
-;; Toggle Window lock mode with key binding.
-(global-set-key (kbd "C-x t l") 'window-lock-mode)
 
 ;;; xclip.el --- Emacs Interface to XClip.
 ;;; --------------------------------------------------------------------------
