@@ -643,6 +643,10 @@
       (idle-highlight-mode t))
     (flyspell-prog-mode)))
 
+(add-hook 'autoconf-mode-hook
+          (lambda()
+            (programming-common-hook)))
+
 (add-hook 'c-mode-common-hook
           (lambda ()
             (programming-common-hook)
