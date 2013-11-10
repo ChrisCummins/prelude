@@ -537,9 +537,6 @@
 (setq auto-mode-alist (cons '("COPYING" . text-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.txt$" . text-mode) auto-mode-alist))
 
-;; PHP files load in html-mode (why not?).
-(setq auto-mode-alist (cons '("\\.php$" . html-mode) auto-mode-alist))
-
 (defvar c++-source-extension-list '("c" "cc" "C" "cpp" "c++"))
 (defvar c++-header-extension-list '("h" "hh" "H" "hpp"))
 (defvar c++-default-header-ext "h")
