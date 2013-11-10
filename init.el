@@ -1155,6 +1155,11 @@
 
 (require 'paredit)
 
+;;; php-mode.el --- major mode for editing PHP code
+;;; --------------------------------------------------------------------------
+
+(require 'php-mode)
+
 ;;; pylookup.el --- emacs mode for searching python documents with convenience
 ;;; --------------------------------------------------------------------------
 
