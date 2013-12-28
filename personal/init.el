@@ -43,6 +43,64 @@
 ;;; Procedures.
 ;;; ==========================================================================
 
+(defun compile-command-set ()
+  "Set the compile-command variable."
+  (interactive)
+  (let ((new-compile-command (read-from-minibuffer
+                              "Compile command: "
+                              compile-command)))
+    (setq compile-command new-compile-command)))
+
+(defun c-toggle-header-file()
+  "Switches a .c source buffer to the .h header buffer and vice versa."
+  (interactive)
+  (let ((buf (current-buffer))
+        (name (file-name-nondirectory (buffer-file-name)))
+        file
+        offs)
+    (setq offs (string-match c++-header-ext-regexp name))
+    (if offs
+        (let ((lst c++-source-extension-list)
+              (ok nil)
+              ext)
+          (setq file (substring name 0 offs))
+          (while (and lst (not ok))
+            (setq ext (car lst))
+            (if (file-exists-p (concat file "." ext))
+                (setq ok t))
+            (setq lst (cdr lst)))
+          (if ok
+              (find-file (concat file "." ext))))
+      (let ()
+        (setq offs (string-match c++-source-ext-regexp name))
+        (if offs
+            (let ((lst c++-header-extension-list)
+                  (ok nil)
+                  ext)
+              (setq file (substring name 0 offs))
+              (while (and lst (not ok))
+                (setq ext (car lst))
+                (if (file-exists-p (concat file "." ext))
+                    (setq ok t))
+                (setq lst (cdr lst)))
+              (if ok
+                  (find-file (concat file "." ext)))))))))
+
+(defun open-in-vim ()
+  "Opens the current file in vim."
+  (interactive)
+  (if (not (equal buffer-file-name nil))
+      (let ((vim-prefix "gnome-terminal -e 'vim") (vim-postfix "'"))
+        (save-buffer) ;; First, write changes to disk
+        (recenter) ;; Vim opens files with the view centred
+        (shell-command-to-string (concat vim-prefix " "
+                                         (shell-quote-argument buffer-file-name)
+                                         " +"
+                                         (number-to-string (line-number-at-pos))
+                                         vim-postfix " &>/dev/null &")))
+    ;; Not all buffers are associated with files
+    (message "Not a real file")))
+
 
 ;;; General settings.
 ;;; ==========================================================================
@@ -59,10 +117,21 @@
 
 (add-hook 'prelude-prog-mode-hook 'disable-guru-mode t)
 
-;; Start an emacs server, if one is not already running.
-(require 'server)
-(or (server-running-p)
-    (server-start))
+;; Case insensitive list sorting.
+(setq sort-fold-case t)
+
+;; Setup dictionary.
+(setq ispell-dictionary "british")
+
+;; Revert a buffer through a key binding.
+(global-set-key (kbd "M-R") 'revert-buffer)
+
+;; Set text-mode for known plaintext files.
+(setq auto-mode-alist (cons '("README" . text-mode) auto-mode-alist)
+(setq auto-mode-alist (cons '("INSTALL" . text-mode) auto-mode-alist)))
+(setq auto-mode-alist (cons '("LICENSE" . text-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("COPYING" . text-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.txt$" . text-mode) auto-mode-alist))
 
 
 ;;; Appearance, text and input.
@@ -73,9 +142,12 @@
 (set-face-background 'hl-line "#2f2f2f")
 (set-face-foreground 'highlight nil)
 
+;; Cursor to use when this buffer is in the selected window.
+(set-default 'cursor-type 'bar)
 
-;;; Files, buffers and windows.
-;;; ==========================================================================
+;; Set a cursor color.
+(setq default-frame-alist
+      '((cursor-color . "red")))
 
 
 ;;; Terminal integration.
@@ -85,8 +157,12 @@
 ;; e.g. click to set cursor at mouse point, etc.
 (xterm-mouse-mode 1)
 
+
 ;;; Mode-specific configurations.
 ;;; ==========================================================================
+
+;; Allow wdired to edit file permissions.
+(setq wdired-allow-to-change-permissions t)
 
 (setq js-indent-level 2)
 
